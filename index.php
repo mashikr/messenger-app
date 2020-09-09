@@ -28,7 +28,6 @@
                 </div>
 
                 <div class="col part-2 text-info d-flex justify-content-center align-items-center">
-                    
                     <div class="sign-up w-75">
                         <h3 class="text-center">Create account</h3>
                         <div class="d-flex justify-content-center">
@@ -43,46 +42,46 @@
                             </div>
                         </div>
                         <p class="small-text">or use your email for registration</p>
-                        <form action="" method="">
+                        <form action="" method="" id="signup-form">
                             <div class="input">
                                 <i class="fas fa-user"></i>
-                                <input type="text" placeholder="Name">
+                                <input type="text" name="name" placeholder="Name" id="signup-name">
                             </div>
                             <div class="name-error error"></div> 
                             <div class="input">
                                 <i class="far fa-envelope"></i>
-                                <input type="email" placeholder="Email">                             
+                                <input type="email" name="email" placeholder="Email" id="signup-email">                             
                             </div>
                             <div class="email-error error"></div> 
                             <div class="input">
                                 <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="password">                            
+                                <input type="password" name="password" placeholder="password" id="signup-password">                            
                             </div>
                             <div class="password-error error"></div> 
                             
                         </form>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-info btn-border">SIGN UP</button>
+                            <button class="btn btn-info btn-border" id="signup-btn">SIGN UP</button>
                         </div>
                     </div>
 
                     <div class="sign-in w-75">
                         <h3 class="text-center mb-4">Log in account</h3>
                         
-                        <form action="" method="">
+                        <form action="" method="" id="signin-form">
                             <div class="input">
                                 <i class="far fa-envelope"></i>
-                                <input type="email" placeholder="Email">                             
+                                <input type="email" name="email" placeholder="Email" id="signin-email">                             
                             </div>
                             <div class="email-err error"></div> 
                             <div class="input">
                                 <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="password">                            
+                                <input type="password" name="password" placeholder="password" id="signin-password">                            
                             </div>
                             <div class="password-err error"></div> 
                         </form>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-info btn-border">SIGN IN</button>
+                            <button class="btn btn-info btn-border" id="signin-btn">SIGN IN</button>
                         </div>
                     </div>
 

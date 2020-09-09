@@ -111,6 +111,11 @@ body {
     color: var(--danger);
     font-size: .8rem;
 }
+.msg-div {
+    position: absolute;
+    top: 1rem;
+    width: 70%;
+}
 
 @media only screen and (max-width: 1000px) {
     html {
