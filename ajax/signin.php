@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+ob_start();
 require_once 'emailcheck.php';
 
 if (isset($_GET['email'])) {
@@ -9,6 +10,10 @@ if (isset($_GET['email'])) {
 
     if (password_verify($_GET['password'], $user['password'])) {
         echo true;
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['name'] = $user['name'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['image'] = $user['image'];
     } else {
         echo false;
     }
