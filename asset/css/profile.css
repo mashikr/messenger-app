@@ -42,7 +42,7 @@
     border-radius: 50%;
     overflow: hidden;
 }
-.img-overlay img {
+.img-overlay img, .search-img-overlay img {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -61,6 +61,27 @@
 .pointer {
     cursor: pointer;
 }
+.search-result {
+    position: absolute;
+    top: 2.3rem;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    z-index: 10;
+    display: none;
+}
+.search-img-overlay {
+    position: relative;
+    height: 2rem;
+    width: 2rem;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+
+
 @media only screen and (max-width: 576px) {
     #search-box {
         width: 10rem;

@@ -52,7 +52,9 @@ if (isset($_FILES['image'])) {
             $db->bind(':id', $_SESSION['user_id']);
 
             if ($db->execute()) {
-                unlink('../asset/img/'.$_SESSION['image']);
+                if ($_SESSION['image']) {
+                    unlink('../asset/img/'.$_SESSION['image']);
+                }
                 $_SESSION['image'] = $file_name;
                 echo json_encode(array('status' => true, 'image' => $file_name));
             } else {

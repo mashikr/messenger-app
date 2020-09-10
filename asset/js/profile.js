@@ -134,11 +134,39 @@ $(document).ready(function() {
            response = JSON.parse(response);
            if (response.status == 1) {
             $('.user-image').attr('src', 'asset/img/' + response.image);
+            $('.custom-file-label').html('Choose file');
+            $('.custom-file-input').val('');
            } else {
             $('.update-msg').html('<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert"><span>&times;</span></button><strong>Failed!</strong> Something went wrong</div>');
            }
 
            $('.alert-dismissable').fadeOut(5000);
+        }
+    });
+
+    $('#search-box').keyup(function() {
+        var key = $(this).val().trim();
+        if (key == '') {
+            $('.search-result').slideUp().html('');
+        } else { 
+            (async function search() {
+                var response = await $.post('ajax/search.php',{ key: key });
+                if (response == 'false') {
+                    $('.search-result').slideUp().html('');
+                } else {
+                    response = JSON.parse(response);
+                    $('.search-result').slideDown().html('');
+                    response.forEach(user => {
+                        var markup = `
+                        <a href="" class="result d-flex align-items-center btn btn-light rounded p-1 mt-1 pointer" data-id = ${user.id}>
+                        <div class="search-img-overlay mr-2"><img class="search-img" src="asset/img/${user.image ? user.image : 'user.png'}" alt="${user.name}"></div><small class="search-name">${user.name}</small>
+                        </a>
+                        `;
+                        $('.search-result').append(markup);
+                   });
+                }
+            })()
+            
         }
     });
 });
