@@ -281,3 +281,11 @@
 
         <?php }?>
 </div>
+
+<div class="modal" id="imageModal">
+        <div class="modal-dialog">
+        <div class="modal-body">
+        <img id="modalImage" src="" alt="">
+        </div>
+        </div>
+</div>

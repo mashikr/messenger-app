@@ -241,7 +241,7 @@ $(document).ready(function() {
             contentType: false,
             processData: false
         });
-console.log(response);
+
         if (response == 1){
             sendMessages();
         } else if (response == 'invalid') {
@@ -313,5 +313,11 @@ console.log(response);
         $('#msg-body').animate({scrollTop: $('#msg-body')[0].scrollHeight});
     }
     msgAnimate();
+
+    //////// view chat image /////////
+    $('.chat-img').click(function() {
+        $('#imageModal').modal('show');
+        $('#modalImage').attr('src', $(this).attr('src'));
+    });
 
 });

@@ -145,6 +145,9 @@
     z-index: 10;
     width: 100%;
 }
+#modalImage {
+    height: 80vh;
+}
 
 @media only screen and (max-width: 576px) {
     #search-box {
@@ -160,6 +163,7 @@
     }
     
 }
+
 @media only screen and (min-width: 576px) {
     #sidebar {
         position: static;

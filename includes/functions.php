@@ -23,7 +23,10 @@ function searchChat($c_id = null, $a_id = null) {
         }
     }
 
-    if (empty($ids) &&  $c_id) {
+    if (empty(getUserById($c_id))) {
+        $c_id = null;
+    }
+    else if (empty($ids) &&  $c_id) {
         printChatUser($c_id, $a_id);
     } elseif (!in_array($c_id, $ids) && $c_id) {
         printChatUser($c_id, $a_id);
@@ -144,7 +147,7 @@ function searchChat($c_id = null, $a_id = null) {
                                <div class="d-flex flex-column msg-image">
                                         <small class="text-muted">'. $message['time'] .'</small>
                                         <div class="rounded p-2">
-                                        <img src="asset/img/'. $message['message'] .'" class="msg-image" alt="'. $message['message'] .'">
+                                        <img src="asset/img/'. $message['message'] .'" class="msg-image pointer chat-img" alt="'. $message['message'] .'">
                                         </div>
                                </div>
                         </div>
@@ -240,7 +243,7 @@ function searchChat($c_id = null, $a_id = null) {
                                                 <small>'. $user['name'] .'</small> <small>'. $message['time'] .'</small>
                                         </div>
                                         <div class="rounded p-2">
-                                        <img src="asset/img/' . $message['message']  .'" class="msg-image" alt="' . $message['message'] . '">
+                                        <img src="asset/img/' . $message['message']  .'" class="msg-image pointer chat-img" alt="' . $message['message'] . '">
                                         </div>
                                </div>
                         </div>
