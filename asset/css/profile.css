@@ -42,7 +42,7 @@
     border-radius: 50%;
     overflow: hidden;
 }
-.img-overlay img, .search-img-overlay img {
+.img-overlay img, .search-img-overlay img, .chat-img-overlay img {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -79,8 +79,72 @@
     border-radius: 50%;
     overflow: hidden;
 }
-
-
+.chat-img-overlay {
+    position: relative;
+    height: 3rem;
+    width: 3rem;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.chat-holder {
+    max-height: 60vh;
+    overflow-y: scroll;
+}
+.customFile{
+    display: none;
+}
+.customlabel {
+    font-size: 1.5rem;
+    color: var(--info);
+    cursor: pointer;
+}
+.customlabel:hover {
+    color: #17a3b8c7;
+}
+.emoji {
+    height: 1.5rem;
+    cursor: pointer;
+    margin: 0 5px;
+}
+#msg-body {
+    max-height: 67vh;
+    overflow-y: scroll;
+}
+#msg-body .justify-content-start .d-flex {
+    min-width: 10rem;
+}
+.msg-image {
+    max-width: 8rem;
+}
+.audio {
+    min-width: 15rem;
+    max-width: 100%;
+}
+.video {
+    max-width: 100%;
+}
+.msg-emoji {
+    height: 2.5rem;
+    cursor: pointer;
+    margin: 0 5px;
+    animation: move 1s infinite;
+}
+@keyframes move {
+    0%,100%{
+        transform: rotate(-20deg);
+    }
+    66% {
+        transform: rotate(20deg);
+    }
+}
+#msg-msg {
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+}
 
 @media only screen and (max-width: 576px) {
     #search-box {
@@ -99,6 +163,21 @@
 @media only screen and (min-width: 576px) {
     #sidebar {
         position: static;
+    }
+    
+}
+@media only screen and (min-width: 768px) {
+    .video {
+        max-width: 80%;
+    }
+    
+}
+@media only screen and (min-width: 992px) {
+    #msg-body .d-flex .d-flex {
+        max-width: 75%;
+    }
+    .video {
+        max-width: 60%;
     }
     
 }

@@ -1,6 +1,5 @@
 <?php
-session_start();
-ob_start();
+
 require_once 'emailcheck.php';
 
 if (isset($_GET['email'])) {

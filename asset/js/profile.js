@@ -125,7 +125,7 @@ $(document).ready(function() {
                 contentType: false,
                 processData: false
             });
-            
+            console.log(response);
            if (response == 'invalid') {
             $('.update-msg').html('<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert"><span>&times;</span></button><strong>Failed!</strong> Invalid file</div>');
            } else if (response == 'wrong') {
@@ -144,6 +144,8 @@ $(document).ready(function() {
         }
     });
 
+    //// search user //////
+
     $('#search-box').keyup(function() {
         var key = $(this).val().trim();
         if (key == '') {
@@ -158,7 +160,7 @@ $(document).ready(function() {
                     $('.search-result').slideDown().html('');
                     response.forEach(user => {
                         var markup = `
-                        <a href="" class="result d-flex align-items-center btn btn-light rounded p-1 mt-1 pointer" data-id = ${user.id}>
+                        <a href="profile?id=${user.id}" class="result d-flex align-items-center btn btn-light rounded p-1 mt-1 pointer" data-id = ${user.id}>
                         <div class="search-img-overlay mr-2"><img class="search-img" src="asset/img/${user.image ? user.image : 'user.png'}" alt="${user.name}"></div><small class="search-name">${user.name}</small>
                         </a>
                         `;
@@ -169,4 +171,147 @@ $(document).ready(function() {
             
         }
     });
+
+    ////// send text message /////
+
+    $('#text-msg').keyup(function(e) {
+        if (e.keyCode == 13) {
+            var msg = $(this).val().trim();
+            const params = new URLSearchParams(window.location.search);
+            var receiver = params.get('id');
+            if (msg != '') {
+                $.post('ajax/sendMessage.php',{ msg: msg, receiver: receiver}, function(response) {
+
+                    if (response == 1) {
+                        $('#text-msg').val('');
+                        sendMessages();
+                    }
+                });
+            }
+
+            
+        }
+    });
+
+    function sendMessages() {
+        const params = new URLSearchParams(window.location.search);
+        var receiver = params.get('id');
+
+        if (receiver) {
+            $.post('ajax/fetchMessages.php',{ rec: receiver }, function(response) {
+                if (response) {
+                    $('#msg-body').html('').html(response); 
+                    msgAnimate();  
+                }             
+            });
+        }
+    }
+
+    ////// send image /////////
+    var image_reg = /(?=.*\d+)([^?]*)/;
+    $('#send-image').change(async function() {
+        var response = await $.ajax({
+            type: 'POST',
+            url: 'ajax/sendMessage.php',
+            data: new FormData ($('#image-form')[0]),
+            contentType: false,
+            processData: false
+        });
+        if (response == 1){
+            sendMessages();
+        } else if (response == 'invalid') {
+            $('#msg-msg').append('<div class="alert alert-danger alert-dismissable msg-div"><button type="button" class="close" data-dismiss="alert"><span>&times;</span></button><strong>Failed!</strong> This is not an image file.</div>');
+            $('#msg-msg .alert-dismissable').fadeOut(5000);
+        } else if (image_reg.test(response)) {
+            $('#msg-msg').append('<div class="alert alert-danger alert-dismissable msg-div"><button type="button" class="close" data-dismiss="alert"><span>&times;</span></button><strong>Failed!</strong> File size limit exceed.</div>');
+            $('#msg-msg .alert-dismissable').fadeOut(5000);
+        } else {
+            $('#msg-msg').append('<div class="alert alert-danger alert-dismissable msg-div"><button type="button" class="close" data-dismiss="alert"><span>&times;</span></button><strong>Failed!</strong> Connection failed.</div>');
+            $('#msg-msg .alert-dismissable').fadeOut(5000);
+        }
+        $('#send-image').val('');
+    });
+
+    ////// send file /////////
+    $('#send-file').change(async function() {
+        var response = await $.ajax({
+            type: 'POST',
+            url: 'ajax/sendMessage.php',
+            data: new FormData ($('#file-form')[0]),
+            contentType: false,
+            processData: false
+        });
+console.log(response);
+        if (response == 1){
+            sendMessages();
+        } else if (response == 'invalid') {
+            $('#msg-msg').append('<div class="alert alert-danger alert-dismissable msg-div"><button type="button" class="close" data-dismiss="alert"><span>&times;</span></button><strong>Failed!</strong> Invalid file.</div>');
+            $('#msg-msg .alert-dismissable').fadeOut(5000);
+        } else if (image_reg.test(response)) {
+            $('#msg-msg').append('<div class="alert alert-danger alert-dismissable msg-div"><button type="button" class="close" data-dismiss="alert"><span>&times;</span></button><strong>Failed!</strong> File size limit exceed.</div>');
+            $('#msg-msg .alert-dismissable').fadeOut(5000);
+        } else {
+            $('#msg-msg').append('<div class="alert alert-danger alert-dismissable msg-div"><button type="button" class="close" data-dismiss="alert"><span>&times;</span></button><strong>Failed!</strong> Connection failed.</div>');
+            $('#msg-msg .alert-dismissable').fadeOut(5000);
+        }
+        $('#send-file').val('');
+    });
+
+    ////// send emoji ///////
+    $('.emojis .emoji').click(function() {
+        const params = new URLSearchParams(window.location.search);
+        var receiver = params.get('id');
+
+        if (receiver) {
+            $.post('ajax/sendMessage.php',{ emoji: $(this).attr('src'), receiver: receiver }, function(response) {
+                if (response == 1) {
+                    sendMessages();  
+                } else {
+                    $('#msg-msg').append('<div class="alert alert-danger alert-dismissable msg-div"><button type="button" class="close" data-dismiss="alert"><span>&times;</span></button><strong>Failed!</strong> Connection failed.</div>');
+                    $('#msg-msg .alert-dismissable').fadeOut(5000);
+                }             
+            });
+        }
+    });
+
+
+
+    ///// refreash message body /////////
+
+    setInterval(fetchMessages, 3000);
+
+    function fetchMessages() {
+        const params = new URLSearchParams(window.location.search);
+        var receiver = params.get('id');
+
+        if (receiver) {
+            $.post('ajax/fetchMessages.php',{ receiver: receiver }, function(response) {
+                if (response) {
+                    $('#msg-body').html('').html(response);  
+                    msgAnimate(); 
+                }             
+            });
+        }
+    };
+
+    ///// refreash chat holder body /////////
+
+    setInterval(fetchChats, 3000);
+
+    function fetchChats() {
+        const params = new URLSearchParams(window.location.search);
+        var receiver = params.get('id');
+        $.post('ajax/fetchMessages.php',{ chat: receiver }, function(response) {
+            if (response) {
+                $('.chat-holder').html('').html(response);
+            }             
+        });
+    }
+
+    ///// animate chat body ///////
+    function msgAnimate() {
+        $('#msg-body').animate({scrollTop: $('#msg-body')[0].scrollHeight});
+    }
+    msgAnimate();
+
 });

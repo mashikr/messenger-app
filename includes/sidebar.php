@@ -12,9 +12,32 @@
     </a>
     <div class="ml-3 mt-3 border-bottom"></div>
 
-    <div class="media-body d-flex flex-column justify-content-between">
-        <div class="chat-holder">
+    <div class="media-body pb-2 d-flex flex-column justify-content-between">
+        <div class="chat-holder d-flex flex-column">
+
+           <?php 
+                $id  = '';
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                }
+                searchChat($id); 
+           ?>
+            <!-- <div class="d-flex align-items-center btn btn-info rounded p-1 mt-2 ml-4">
+                <div class="chat-img-overlay mr-2"><img class="search-img" src="asset/img/IMG_0759.JPG" alt="Asif"></div>
+                <span class="search-name">Asif Mahmud</span>
+                <span class="badge badge-danger ml-auto">1</span>
+            </div>
+            <div class="d-flex align-items-center btn btn-info rounded p-1 mt-2 ml-4">
+                <div class="chat-img-overlay mr-2"><img class="search-img" src="asset/img/IMG_0759.JPG" alt="Asif"></div>
+                <span class="search-name">Asif Mahmud</span>
+                <span class="badge badge-danger ml-auto">5</span>
+            </div>
+            <div class="d-flex align-items-center btn btn-info rounded p-1 mt-2 ml-4">
+                <div class="chat-img-overlay mr-2"><img class="search-img" src="asset/img/IMG_0759.JPG" alt="Asif"></div>
+                <span class="search-name">Asif Mahmud</span>
+                <span class="badge badge-danger ml-auto">3</span>
+            </div> -->
         </div>
-        <a class="btn btn-sm btn-secondary d-block ml-4 mt-3 mb-2" href="logout.php">Logout</a>
+        <a class="btn btn-sm btn-secondary d-block ml-4 mb-4 mt-3" href="logout.php">Logout</a>
     </div>
 </div>

@@ -1,6 +1,8 @@
 <?php 
-session_start();
-ob_start();
+
+require_once 'classes/Database.php';
+$db = new Database();
+require_once 'includes/functions.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: /messenger');

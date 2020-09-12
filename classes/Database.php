@@ -1,4 +1,7 @@
 <?php
+session_start();
+ob_start();
+
     class Database {
         private $host = 'localhost';
         private $user = 'root';

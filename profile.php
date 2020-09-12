@@ -4,11 +4,11 @@
 
     <?php require_once 'includes/navbar.php'; ?>
 
-    <div class="row media-body">
+    <div class="row flex-nowrap media-body">
 
         <?php require_once 'includes/sidebar.php'; ?>
 
-        <div class="col h-100" id="body">
+        <div class="col" id="body">
             <?php
                 if (isset($_GET['id'])) {
                     require_once 'includes/messages.php';
