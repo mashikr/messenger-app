@@ -1,12 +1,14 @@
 <?php
 
-require_once 'emailcheck.php';
+require_once '../classes/Database.php';
 
-if (isset($_GET['email'])) {
+$db = new Database();
+
+if (isset($_POST['email']) && isset($_POST['name']) && isset($_POST['password'])) {
     $db->query('INSERT INTO `users`(`name`, `email`, `password`) VALUES (:name,:email,:password)');
-    $db->bind(':name', $_GET['name']);
-    $db->bind(':email', $_GET['email']);
-    $db->bind(':password', password_hash($_GET['password'], PASSWORD_DEFAULT));
+    $db->bind(':name', $_POST['name']);
+    $db->bind(':email', $_POST['email']);
+    $db->bind(':password', password_hash($_POST['password'], PASSWORD_DEFAULT));
 
     if ($db->execute()) {
         echo true;

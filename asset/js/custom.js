@@ -58,7 +58,7 @@ $(document).ready(function() {
         } else {
             var data = await $.ajax({
                 type: 'POST',
-                url: "ajax/signup.php",
+                url: "ajax/emailcheck.php",
                 data:  {    'email': email  }
             });
             if (data == 1) {
@@ -111,7 +111,11 @@ $(document).ready(function() {
         validateEmail(email).then(result => {
             (async function login() {
                 if (result && validateName(name) && validatePassword(password)) {
-                    var response = await $.get("ajax/signup.php?" + $('#signup-form').serialize());
+                    var response = await $.ajax({
+                                type: 'POST',
+                                url: "ajax/signup.php",
+                                data:  {    'name': name, 'email': email, 'password': password }
+                            });
                     if (response == 1) {
                         $('.part-2').append('<div class="alert alert-success alert-dismissable msg-div"><button type="button" class="close" data-dismiss="alert"><span>&times;</span></button><strong>Success!</strong> Registration complete!</div>');
                         $('#signup-name').val('');
@@ -145,7 +149,7 @@ $(document).ready(function() {
         } else {
             var data = await $.ajax({
                 type: 'POST',
-                url: "ajax/signin.php",
+                url: "ajax/emailcheck.php",
                 data:  {    'email': email  }
             });
 
@@ -196,7 +200,12 @@ $(document).ready(function() {
             
             if (result && checkPassword(password)) {
                 (async function login() {
-                    var response = await $.get("ajax/signin.php?" + $('#signin-form').serialize());
+                    var response = await $.ajax({
+                        type: 'POST',
+                        url: "ajax/signin.php",
+                        data:  {  'email': email, 'password': password }
+                    });
+                    console.log(response);
                     if (response == 1) {
                         window.location = window.location.href + 'profile';
                     } else {

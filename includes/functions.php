@@ -87,7 +87,9 @@ function searchChat($c_id = null, $a_id = null) {
         date_default_timezone_set("Asia/Dhaka");
         $time = time() - strtotime($time);
 
-        if ($time/60 <= 1) {
+        if ($time/60 < 1) {
+            return $time .' sec ago';
+        }else if (floor($time/60) == 1) {
             return '1 min ago';
         }else if ($time/3600 < 1) {
             return floor($time/60) . ' min ago';
